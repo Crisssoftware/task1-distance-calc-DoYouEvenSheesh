@@ -18,7 +18,8 @@ class PoseSubscriber(Node):
                 )
     
     def listener_callback(self, msg):
-        self.get_logger().info('The distance from origin is: {}'.format(distanceFromOrigin(msg.x, msg.y)))
+        distanceTurtleSim = distanceFromOrigin(msg.x, msg.y)
+        self.get_logger().info('The distance from origin is: {}'.format(distanceTurtleSim))
 
 def main(args=None):
     rclpy.init(args=args)
