@@ -21,17 +21,14 @@ class PoseSubscriber(Node):
                 )
 
         self.publisher_ = self.create_publisher(String, '/turtle1/distance_from_origin', 10)
-        timer_period = 0.5
-        self.timer = self.create_timer(timer_period, self.timer_callback)
 
     def listener_callback(self, msg):
         distanceFromOrigin = calcDistance(msg.x, msg.y)
 
-    
-    def timer_callback(self):
-        msg = String()
-        msg.data = 'The distance from origin is: {}'.format(distanceFromOrigin)
-        self.get_logger().info('Publishing: {}'.format(msg.data))
+        outputMsg = String()
+        outputMsg.data = "The distance from origin is: {}".format(distanceFromOrigin)
+        self.publisher_.publish(outputMsg)
+        self.get_logger().info("Publishing: {}".format(outputMsg.data))
 
 
 def main(args=None):
