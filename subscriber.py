@@ -1,6 +1,7 @@
 import rclpy
 from rclpy.node import Node
 from turtlesim.msg import Pose
+from std_msgs.msg import String
 from math import sqrt
 
 distanceFromOrigin = 0
@@ -18,9 +19,20 @@ class PoseSubscriber(Node):
                 self.listener_callback,
                 10
                 )
-    
+
+        self.publisher_ = self.create_publisher(String, '/turtle1/distance_from_origin', 10)
+        timer_period = 0.5
+        self.timer = self.create_timer(timer_period, self.timer_callback)
+
     def listener_callback(self, msg):
         distanceTurtleSim = distanceFromOrigin(msg.x, msg.y)
+
+    
+    def timer_callback(self):
+        msg = String()
+        msg.data = 'The distance from origin is: {}'.format(distanceTurtleSim)
+        self.get_logger().info('Publishing: {}'.format(msg.data))
+
 
 def main(args=None):
     rclpy.init(args=args)
