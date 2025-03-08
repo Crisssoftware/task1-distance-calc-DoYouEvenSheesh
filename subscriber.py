@@ -6,7 +6,7 @@ from math import sqrt
 
 distanceFromOrigin = 0
 
-def distanceFromOrigin(x: float, y: float):
+def calcDistance(x: float, y: float):
     return sqrt(x**2 + y**2)
 
 class PoseSubscriber(Node):
@@ -25,12 +25,12 @@ class PoseSubscriber(Node):
         self.timer = self.create_timer(timer_period, self.timer_callback)
 
     def listener_callback(self, msg):
-        distanceTurtleSim = distanceFromOrigin(msg.x, msg.y)
+        distanceFromOrigin = calcDistance(msg.x, msg.y)
 
     
     def timer_callback(self):
         msg = String()
-        msg.data = 'The distance from origin is: {}'.format(distanceTurtleSim)
+        msg.data = 'The distance from origin is: {}'.format(distanceFromOrigin)
         self.get_logger().info('Publishing: {}'.format(msg.data))
 
 
