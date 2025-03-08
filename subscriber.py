@@ -15,7 +15,7 @@ class PoseSubscriber(Node):
                 )
     
     def listener_callback(self, msg):
-        self.get_logger().info('The x coordinate is: "%d"' % msg.x)
+        self.get_logger().info('The data type of x coordinate is: {}'.format(type(msg.x)) )
 
 def main(args=None):
     rclpy.init(args=args)
