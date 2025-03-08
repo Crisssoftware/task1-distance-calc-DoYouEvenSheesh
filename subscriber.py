@@ -3,6 +3,8 @@ from rclpy.node import Node
 from turtlesim.msg import Pose
 from math import sqrt
 
+distanceFromOrigin = 0
+
 def distanceFromOrigin(x: float, y: float):
     return sqrt(x**2 + y**2)
 
@@ -19,7 +21,6 @@ class PoseSubscriber(Node):
     
     def listener_callback(self, msg):
         distanceTurtleSim = distanceFromOrigin(msg.x, msg.y)
-        self.get_logger().info('The distance from origin is: {}'.format(distanceTurtleSim))
 
 def main(args=None):
     rclpy.init(args=args)
